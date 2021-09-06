@@ -1,0 +1,64 @@
+//------------------------------------------------------------------------//
+// Name: Jan Koziol                                                       //
+// Email: jankoziol@gmx.de                                                //
+// GitHub: https://github.com/Jankoziol/discrete-sample                   //
+//------------------------------------------------------------------------//
+
+#pragma once
+
+#include <vector>
+#include <numeric>
+#include <stdexcept>
+
+
+
+class cumulative_sampler {
+
+	protected :
+		std::vector<double> cp; // cp - cumulative probabilities
+	
+	public : 
+		cumulative_sampler (  );
+		cumulative_sampler ( const std::vector<double> & w );
+		void set (  );
+		void set ( const std::vector<double> & w );
+		int draw ( const double u );
+
+};
+
+
+
+cumulative_sampler::cumulative_sampler (  ) :
+	cp ( {1} ) {
+}
+
+cumulative_sampler::cumulative_sampler ( const std::vector<double> & w ) :
+	cp ( {} ) {
+	set ( w );
+}
+
+void cumulative_sampler::set (const std::vector<double> & w) {
+	cp = {0};
+	cp.reserve ( w.size()+1 );
+	bool onlyzero = true;
+	for ( auto & e : w ) {
+		if ( e < 0 ) throw std::domain_error( "negative weights" );
+		else if ( e > 0 ) onlyzero = false;
+		cp.push_back ( cp.back() + e );
+	}
+	if ( onlyzero ) throw std::domain_error( "only zero weights" );
+	cp.erase ( cp.begin() );
+	for ( auto & e : cp ) e = e/cp.back();
+}
+
+void cumulative_sampler::set (  ) {
+	cp = {1};
+}
+
+int cumulative_sampler::draw ( const double u ) {
+	if ( ( u > 1 ) || ( u < 0 ) ) 
+			throw std::domain_error( "u is out of bounds" );
+	int k = 0;
+	while ( u > cp[k] ) k++;
+	return k;
+}
