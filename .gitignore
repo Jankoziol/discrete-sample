@@ -50,3 +50,8 @@ tags
 *.exe
 *.out
 *.app
+
+# ---> txt
+
+# txt
+*.txt
