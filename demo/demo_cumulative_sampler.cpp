@@ -22,15 +22,15 @@ void first_demo (  ) {
 	// weights for a given index as relative weights or probabilities.
 	// We define the weight to draw an integer i, by setting the value
 	// in an std::vector<double> at index i to the desired weight.
-	std::vector<double> w = {1,2,3,0,5};
+	const std::vector<double> w = {1,2,3,0,5};
 
-	// We can now constuct the cumulative_sampler object.
+	// We can now constuct the cumulative_sampler instance.
 	cumulative_sampler cs ( w );
 
 	// To draw from the discrete probability distribution we need
 	// doubles drawn from the uniform real distribution from 0 to 1
 	std::mt19937 gen ( 0 ); // Standard mersenne twister engine with seed 0
-    std::uniform_real_distribution<double> dis ( 0.0, 1.0 );	
+	std::uniform_real_distribution<double> dis ( 0.0, 1.0 );	
 
 	// To draw a random number from the discrete probability distribution
 	// we call the draw method of the cumulative_sampler with a random 
@@ -86,7 +86,7 @@ void third_demo (  ) {
 	// The weights of a cumulative_sampler can be set or reset by the
 	// set method. 
 	cumulative_sampler cs = cumulative_sampler (  );
-	std::vector<double> w = {0,2,3,1,5};
+	const std::vector<double> w = {0,2,3,1,5};
 	std::mt19937 gen ( 0 ); // Standard mersenne twister engine with seed 0
     std::uniform_real_distribution<double> dis ( 0.0, 1.0 );	
 	int d1 = cs.draw ( dis ( gen ) );
@@ -103,7 +103,7 @@ void third_demo (  ) {
 	o += " Setting the weight to {0,2,3,1,5} gives then for example ";
 	o += std::to_string ( d2 ) + ". Setting without any weight then again ";
 	o += "results in a sampler that always gives ";
-	o += std::to_string ( d1 ) + " as a result.\n";
+	o += std::to_string ( d3 ) + " as a result.\n";
 	std::cout << o << std::endl;
 	
 }
@@ -114,7 +114,7 @@ void fourth_demo (  ) {
 	// There are some exceptions implemented in the cumulative_sampler.
 	// The most important one is that the code realises when negative
 	// weights occur.
-	std::vector<double> w1 = {-1,2,3,1,5};
+	const std::vector<double> w1 = {-1,2,3,1,5};
 	try {
 		cumulative_sampler cs ( w1 );
 	}
@@ -123,7 +123,7 @@ void fourth_demo (  ) {
 	}
 	
 	// The code also checks if there are only zeros as weights provided.
-	std::vector<double> w2 = {0,0,0,0,0};
+	const std::vector<double> w2 = {0,0,0,0,0};
 	try {
 		cumulative_sampler cs ( w2 );
 	}
@@ -132,7 +132,7 @@ void fourth_demo (  ) {
 	}
 
 	// The code also checks if the argument of draw is element of [0,1] .
-	std::vector<double> w = {1,2,3,1,5};
+	const std::vector<double> w = {1,2,3,1,5};
 	cumulative_sampler cs ( w );
 	try { 
 		cs.draw(2.0);

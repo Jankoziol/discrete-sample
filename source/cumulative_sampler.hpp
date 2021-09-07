@@ -28,12 +28,11 @@ class cumulative_sampler {
 
 
 
-cumulative_sampler::cumulative_sampler (  ) :
-	cp ( {1} ) {
+cumulative_sampler::cumulative_sampler (  ) {
+	set (  );
 }
 
-cumulative_sampler::cumulative_sampler ( const std::vector<double> & w ) :
-	cp ( {} ) {
+cumulative_sampler::cumulative_sampler ( const std::vector<double> & w ) {
 	set ( w );
 }
 
@@ -43,7 +42,7 @@ void cumulative_sampler::set (const std::vector<double> & w) {
 	bool onlyzero = true;
 	for ( auto & e : w ) {
 		if ( e < 0 ) throw std::domain_error( "negative weights" );
-		else if ( e > 0 ) onlyzero = false;
+		else if ( ( onlyzero ) && ( e > 0 ) ) onlyzero = false;
 		cp.push_back ( cp.back() + e );
 	}
 	if ( onlyzero ) throw std::domain_error( "only zero weights" );
@@ -52,7 +51,7 @@ void cumulative_sampler::set (const std::vector<double> & w) {
 }
 
 void cumulative_sampler::set (  ) {
-	cp = {1};
+	set ( {1} );
 }
 
 int cumulative_sampler::draw ( const double u ) {
