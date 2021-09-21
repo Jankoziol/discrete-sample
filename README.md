@@ -5,4 +5,4 @@ This project is aiming to provide C++ implementations of methods to sample discr
 
 # author
 Name: Jan Alexander Koziol <br>
-Email: jankoziol@gmx.de
+Email: jankoziol@gmx.de <br>
