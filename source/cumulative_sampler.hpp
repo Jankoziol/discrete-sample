@@ -42,11 +42,11 @@ void cumulative_sampler::set (const std::vector<double> & w) {
 	cp.reserve ( w.size()+1 );
 	bool onlyzero = true;
 	for ( auto & e : w ) {
-		if ( e < 0 ) throw std::domain_error( "negative weights" );
+		if ( e < 0 ) throw std::domain_error( "Error cumulative_sampler::set: Negative entries in argument w." );
 		else if ( ( onlyzero ) && ( e > 0 ) ) onlyzero = false;
 		cp.push_back ( cp.back() + e );
 	}
-	if ( onlyzero ) throw std::domain_error( "only zero weights" );
+	if ( onlyzero ) throw std::domain_error( "Error cumulative_sampler::set: Only zeros as entries in argument w." );
 	cp.erase ( cp.begin() );
 	for ( auto & e : cp ) e = e/cp.back();
 }
@@ -57,7 +57,7 @@ void cumulative_sampler::set (  ) {
 
 int cumulative_sampler::draw ( const double u ) {
 	if ( ( u > 1 ) || ( u < 0 ) ) 
-			throw std::domain_error( "u is out of bounds" );
+			throw std::domain_error( "Error cumulative_sampler::draw: Argument u is out of the required bounds [0,1]." );
 	int k = 0;
 	while ( u > cp[k] ) k++;
 	return k;

@@ -46,11 +46,11 @@ void walker_sampler::set ( const std::vector<double> & w ) {
 	double sumw = std::accumulate ( w.begin(), w.end(), 0.0 );
 	bool onlyzero = true;
 	for ( int i = 0; i < n; i++ ) { 
-		if ( w[i] < 0 ) throw std::domain_error( "negative weights" );
+		if ( w[i] < 0 ) throw std::domain_error( "Error walker_sampler::set: Negative entries in argument w." );
 		else if ( ( onlyzero ) && ( w[i] > 0 ) ) onlyzero = false;
 		prob[i] = (w[i]*n)/sumw;
 	}
-	if ( onlyzero ) throw std::domain_error( "only zero weights" );
+	if ( onlyzero ) throw std::domain_error( "Error walker_sampler::set: Only zeros as entries in argument w." );
 	std::vector<int> vshort;
 	std::vector<int> vlong;
 	for ( int i = 0; i < n; i++ ) {
@@ -76,14 +76,16 @@ void walker_sampler::set (  ) {
 
 int walker_sampler::draw ( const double u, const int i ) {
 	if ( ( u > 1 ) || ( u < 0 ) ) 
-		throw std::domain_error( "u is out of bounds" );
+		throw std::domain_error( "Error walker_sampler::draw: Argument u is out of the required bounds [0,1]." );
 	if ( ( i < 0) || ( (unsigned)i >= inx.size() ) )
-		throw std::domain_error( "i is out of bounds" );
+		throw std::domain_error( "Error walker_sampler::draw: Argument i is out of the required bounds." );
 	if ( u <= prob[i] ) return i;
 	return inx[i];
 }
 
 int walker_sampler::draw ( double u ) {
+	if ( ( u > 1 ) || ( u < 0 ) ) 
+		throw std::domain_error( "Error walker_sampler::draw: Argument u is out of the required bounds [0,1]." );
 	int64_t i = ( ( reinterpret_cast<int64_t&>(u) & (((int64_t)1 << 53) - 1) ) % inx.size() );
 	return draw ( u, i );
 }

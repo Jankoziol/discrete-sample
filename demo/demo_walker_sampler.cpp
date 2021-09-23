@@ -179,7 +179,7 @@ void fifth_demo (  ) {
 		walker_sampler ws ( w1 );
 	}
 	catch (std::exception & ex) {
-		std::cout << "Not allowed are " << ex.what() << "." << std::endl;
+		std::cout << ex.what() << std::endl;
 	}
 	
 	// The code also checks if there are only zeros as weights provided.
@@ -188,7 +188,7 @@ void fifth_demo (  ) {
 		walker_sampler ws ( w2 );
 	}
 	catch (std::exception & ex) {
-		std::cout << "Not allowed are " << ex.what() << "." << std::endl;
+		std::cout << ex.what() << std::endl;
 	}
 
 	// The code also checks if the argument of draw is element of [0,1] .
@@ -198,7 +198,7 @@ void fifth_demo (  ) {
 		ws.draw(2.0);
 	}
 	catch (std::exception & ex) {
-		std::cout << "Not allowed if " << ex.what() << "." << std::endl;
+		std::cout << ex.what() << std::endl;
 	}
 
 	// The code also checks if the integer argument of draw.
@@ -206,7 +206,7 @@ void fifth_demo (  ) {
 		ws.draw(0.8, 7);
 	}
 	catch (std::exception & ex) {
-		std::cout << "Not allowed if " << ex.what() << ".\n" << std::endl;
+		std::cout << ex.what() << "\n" << std::endl;
 	}
 
 }

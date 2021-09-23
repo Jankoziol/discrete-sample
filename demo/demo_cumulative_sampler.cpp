@@ -119,7 +119,7 @@ void fourth_demo (  ) {
 		cumulative_sampler cs ( w1 );
 	}
 	catch (std::exception & ex) {
-		std::cout << "Not allowed are " << ex.what() << "." << std::endl;
+		std::cout << ex.what() << std::endl;
 	}
 	
 	// The code also checks if there are only zeros as weights provided.
@@ -128,7 +128,7 @@ void fourth_demo (  ) {
 		cumulative_sampler cs ( w2 );
 	}
 	catch (std::exception & ex) {
-		std::cout << "Not allowed are " << ex.what() << "." << std::endl;
+		std::cout << ex.what() << std::endl;
 	}
 
 	// The code also checks if the argument of draw is element of [0,1] .
@@ -138,7 +138,7 @@ void fourth_demo (  ) {
 		cs.draw(2.0);
 	}
 	catch (std::exception & ex) {
-		std::cout << "Not allowed if " << ex.what() << ".\n" << std::endl;
+		std::cout << ex.what() << "\n" << std::endl;
 	}
 
 }
