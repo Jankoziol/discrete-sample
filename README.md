@@ -1,5 +1,5 @@
 # discrete-sample
-This project provides C++ implementations of methods to sample discrete probability distributions.
+This project provides C++ implementations of algorithms to sample discrete probability distributions.
 
 # algorithms
 The algorithms implemented in this project are the following:<br>
