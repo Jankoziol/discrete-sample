@@ -9,3 +9,4 @@ The algorithms implemented in this project are the following:<br>
 # author
 Name: Jan Alexander Koziol <br>
 Email: jankoziol@gmx.de
+
